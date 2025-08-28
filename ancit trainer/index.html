@@ -238,6 +238,21 @@
       </div>
     </div>
 
+    <div class="form-row">
+      <div class="form-col">
+        <div class="form-group">
+          <label for="date">Date:</label>
+          <input type="date" id="date" name="date" required>
+        </div> 
+      </div>
+      <div class="form-col">
+        <div class="form-group">
+          <label for="number_of_trainer">Number of Trainers:</label>
+          <input type="number" name="number_of_trainer" id="number_of_trainer" required>
+        </div>
+      </div>
+    </div>
+   
     <div class="form-group">
       <label for="trainer_name">Trainer Name (For multiple trainers, use commas)</label>
       <input type="text" name="trainer_name" id="trainer_name" required placeholder="e.g., John Doe, Jane Smith">
@@ -249,53 +264,12 @@
     </div>
     <div class="form-col">
         <div class="form-group">
-          <label for="spoke_name">Select Spoke</label>
+          <label for="spoke_name">Select Spoke/College</label>
           <select name="spoke_name" id="spoke_name" required>
-            <option value="">-- Select Spoke --</option>
+            <option value="">-- Select Spoke/College --</option>
           </select>
         </div>
       </div>
-      <!-- Session Details -->
-    
-    <div class="form-row">
-      <div class="form-col">
-        <div class="form-group">
-          <label for="students_present">No. of Students Present</label>
-          <input type="number" name="students_present" id="students_present" required min="0">
-        </div>
-      </div>
-      <div class="form-col">
-        <div class="form-group">
-          <label for="students_absent">No. of Students Absent</label>
-          <input type="number" name="students_absent" id="students_absent" required min="0">
-        </div>
-      </div>
-    </div>
-
-    <div class="form-row">
-      <div class="form-col">
-        <div class="form-group">
-          <label for="duration">Duration Taken (Hours)</label>
-          <input type="number" name="duration" id="duration" required min="0" step="0.5" placeholder="e.g., 2.5">
-        </div>
-      </div>
-      <div class="form-col">
-        <div class="form-group">
-          <label for="contact_number">Contact Number</label>
-          <input type="tel" name="contact_number" id="contact_number" required pattern="[0-9]{10}" placeholder="10-digit number">
-        </div>
-      </div>
-    </div>
-
-    <div class="form-group">
-      <label for="trainer_name">Trainer Name (For multiple trainers, use commas)</label>
-      <input type="text" name="trainer_name" id="trainer_name" required placeholder="e.g., John Doe, Jane Smith">
-    </div>
-
-    <div class="form-group">
-      <label for="remarks">Remarks</label>
-      <textarea name="remarks" id="remarks" rows="4" placeholder="Any additional notes about the session..."></textarea>
-    </div>
 
     <!-- Media Section -->
     <h3 class="section-title">Media Uploads</h3>
