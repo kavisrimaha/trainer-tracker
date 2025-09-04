@@ -182,6 +182,20 @@
   <h1>Session Tracker</h1>
 
   <div id="successMessage" class="success-message">Session data saved successfully!</div>
+  <div class="form-row">
+      <div class="form-col">
+        <div class="form-group">
+          <label for="date">Date:</label>
+          <input type="date" id="date" name="date" required>
+        </div> 
+      </div>
+      <div class="form-col">
+        <div class="form-group">
+          <label for="number_of_trainer">Number of Trainers:</label>
+          <input type="number" name="number_of_trainer" id="number_of_trainer" required>
+        </div>
+      </div>
+    </div>
 
   <form id="sessionForm" enctype="multipart/form-data">
     <!-- Zone + Hub + Spoke -->
@@ -246,26 +260,47 @@
       </div>
     </div>
 
-    <div class="form-row">
-      <div class="form-col">
-        <div class="form-group">
-          <label for="date">Date:</label>
-          <input type="date" id="date" name="date" required>
-        </div> 
-      </div>
-      <div class="form-col">
-        <div class="form-group">
-          <label for="number_of_trainer">Number of Trainers:</label>
-          <input type="number" name="number_of_trainer" id="number_of_trainer" required>
-        </div>
-      </div>
-    </div>
+    
    
-    <div class="form-group">
-      <label for="trainer_name">Trainer Name (For multiple trainers, use commas)</label>
-      <input type="text" name="trainer_name" id="trainer_name" required >
-    </div>
+   <div class="form-group">
+  <label for="trainer_name">Trainer Name</label>
+  <select name="trainer_name" id="trainer_name" required>
+    <option value="">-- Select Trainer --</option>
+    <option value="A.Nisha Jayaraj">A.Nisha Jayaraj</option>
+    <option value="Abirami">Abirami</option>
+    <option value="Ajeesh">Ajeesh</option>
+    <option value="Ashok">Ashok</option>
+    <option value="Barath Kumar">Barath Kumar</option>
+    <option value="Durai Selvi">Durai Selvi</option>
+    <option value="Guru Leelavathy">Guru Leelavathy</option>
+    <option value="Hochi minh perumal">Hochi minh perumal</option>
+    <option value="Iruthaya Jintha">Iruthaya Jintha</option>
+    <option value="Kansul Ariba Barveen.M">Kansul Ariba Barveen.M</option>
+    <option value="Kavya">Kavya</option>
+    <option value="Latha">Latha</option>
+    <option value="Mohan Ram">Mohan Ram</option>
+    <option value="Muppudathi">Muppudathi</option>
+    <option value="NANDHINI S">NANDHINI S</option>
+    <option value="Nithya Sree">Nithya Sree</option>
+    <option value="Parthasarathi">Parthasarathi</option>
+    <option value="Pattu">Pattu</option>
+    <option value="Revathi">Revathi</option>
+    <option value="SABARISHAN S">SABARISHAN S</option>
+    <option value="Sakthimari">Sakthimari</option>
+    <option value="Sakthiramsankar">Sakthiramsankar</option>
+    <option value="Santhosh Pandian">Santhosh Pandian</option>
+    <option value="Selva Jeevitha">Selva Jeevitha</option>
+    <option value="Soosai Anitha">Soosai Anitha</option>
+    <option value="Subramanian">Subramanian</option>
+    <option value="Sudha">Sudha</option>
+    <option value="Sundhara Chozhan">Sundhara Chozhan</option>
+    <option value="Thangalatha">Thangalatha</option>
+    <option value="Uma">Uma</option>
+    <option value="Valarmathi">Valarmathi</option>
+  </select>
+</div>
 
+ <div id="spokeContainer">
     <div class="form-col">
         <div class="form-group">
           <label for="spoke_name">Select Spoke/College</label>
@@ -304,7 +339,8 @@
           <label for="duration">Duration Taken (Hours)</label>
           <input type="number" name="duration" id="duration" required min="0" step="0.5" >
         </div>
-      </div>
+      </div> 
+</div>
 <!--       <div class="form-col">
         <div class="form-group">
           <label for="contact_number">Contact Number</label>

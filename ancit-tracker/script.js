@@ -362,12 +362,11 @@ const locationData = {
     }
   }
 };
-
 const zoneSelect = document.getElementById('zone_name');
 const hubSelect = document.getElementById('hub_name');
-const spokeSelect = document.getElementById('spoke_name');
+const spokeContainer = document.getElementById('spokeContainer');
 
-// Function to populate the zone dropdown
+// Populate zones
 function populateZones() {
   zoneSelect.innerHTML = '<option value="">-- Select Zone --</option>';
   Object.keys(locationData).forEach(zone => {
@@ -377,14 +376,12 @@ function populateZones() {
     zoneSelect.appendChild(opt);
   });
 }
-
-// Populate zones on page load
 populateZones();
 
-// When zone changes, populate hubs
+// Populate hubs on zone change
 zoneSelect.addEventListener('change', function() {
   hubSelect.innerHTML = '<option value="">-- Select Hub --</option>';
-  spokeSelect.innerHTML = '<option value="">-- Select Spoke/College --</option>';
+  spokeContainer.innerHTML = '';
 
   const hubs = locationData[this.value];
   if (hubs) {
@@ -397,30 +394,77 @@ zoneSelect.addEventListener('change', function() {
   }
 });
 
-// When hub changes, populate spokes and colleges
+// Generate form blocks on hub change
 hubSelect.addEventListener('change', function() {
-  spokeSelect.innerHTML = '<option value="">-- Select Spoke/College --</option>';
+  spokeContainer.innerHTML = ''; // clear old
 
   const zone = zoneSelect.value;
   const hub = hubSelect.value;
   const hubData = locationData[zone][hub];
 
   if (hubData) {
-    // Add spokes + their colleges (skip the hub colleges entirely)
     Object.keys(hubData.spokes).forEach(spoke => {
       const spokeColleges = hubData.spokes[spoke];
+
       if (spokeColleges.length > 0) {
-        spokeColleges.forEach(college => {
-          const opt = document.createElement('option');
-          opt.value = college;
-        opt.textContent = `${spoke} - ${college}`; // Just the college name
-          spokeSelect.appendChild(opt);
+        spokeColleges.forEach((college, idx) => {
+          // wrapper block
+          const block = document.createElement('div');
+          block.classList.add('spoke-block');
+          block.style.border = "1px solid #ccc";
+          block.style.padding = "12px";
+          block.style.margin = "10px 0";
+          block.style.borderRadius = "8px";
+
+          // spoke / college select
+          block.innerHTML = `
+            <div class="form-col">
+              <div class="form-group">
+                <label for="spoke_name_${college.replace(/\s+/g,'_')}">Spoke/College</label>
+                <input type="text" name="spoke_name[]" value="${college}" readonly>
+              </div>
+            </div>
+
+            <div class="form-row">
+              <div class="form-col">
+                <label>Branch</label>
+                <select name="branch[]" required>
+                  <option value="">-- Select Branch --</option>
+                  <option value="B.E Electronics and Communication Engineering">B.E Electronics and Communication Engineering</option>
+                  <option value="B.E Biomedical Engineering">B.E Biomedical Engineering</option>
+                </select>
+              </div>
+              <div class="form-col">
+                <div class="form-group">
+                  <label>No. of Students Present</label>
+                  <input type="number" name="students_present[]" required min="0">
+                </div>
+              </div>
+              <div class="form-col">
+                <div class="form-group">
+                  <label>No. of Students Absent</label>
+                  <input type="number" name="students_absent[]" required min="0">
+                </div>
+              </div>
+            </div>
+
+            <div class="form-row">
+              <div class="form-col">
+                <div class="form-group">
+                  <label>Duration Taken (Hours)</label>
+                  <input type="number" name="duration[]" required min="0" step="0.5">
+                </div>
+              </div>
+            </div>
+          `;
+
+          spokeContainer.appendChild(block);
         });
       } else {
-        const opt = document.createElement('option');
-        opt.value = spoke;
-        opt.textContent = `${spoke} (no colleges)`;
-        spokeSelect.appendChild(opt);
+        const emptyMsg = document.createElement('p');
+        emptyMsg.textContent = `${spoke}: No colleges`;
+        emptyMsg.style.color = "gray";
+        spokeContainer.appendChild(emptyMsg);
       }
     });
   }
