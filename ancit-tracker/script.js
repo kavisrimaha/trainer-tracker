@@ -393,7 +393,37 @@ zoneSelect.addEventListener('change', function() {
     });
   }
 });
+ // Max sizes in bytes
+  const MAX_IMAGE_SIZE = 5 * 1024 * 1024; // 5 MB
+  const MAX_VIDEO_SIZE = 50 * 1024 * 1024; // 10 MB
 
+  function validateFileSize(input, maxSizeMB) {
+    const files = input.files;
+    for (let i = 0; i < files.length; i++) {
+      if (files[i].size > maxSizeMB) {
+        alert(`File "${files[i].name}" exceeds the allowed size of ${maxSizeMB / (1024*1024)} MB`);
+        input.value = ''; // clear file input
+        return false;
+      }
+    }
+    return true;
+  }
+
+  document.getElementById('expense_ss').addEventListener('change', function() {
+    validateFileSize(this, MAX_IMAGE_SIZE);
+  });
+
+  document.getElementById('geo_tag').addEventListener('change', function() {
+    validateFileSize(this, MAX_IMAGE_SIZE);
+  });
+
+  document.getElementById('staff_photo').addEventListener('change', function() {
+    validateFileSize(this, MAX_IMAGE_SIZE);
+  });
+
+  document.getElementById('session_video').addEventListener('change', function() {
+    validateFileSize(this, MAX_VIDEO_SIZE);
+  });
 // Generate form blocks on hub change
 hubSelect.addEventListener('change', function() {
   spokeContainer.innerHTML = ''; // clear old
