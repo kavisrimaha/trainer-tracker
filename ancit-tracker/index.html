@@ -277,6 +277,14 @@
 
     <div class="form-row">
       <div class="form-col">
+        <label for="branch">Branch</label>
+          <select name="branch" id="branch" required>
+            <option value="">-- Select Branch --</option>
+            <option value="B.E Electronics and Communication Engineering">B.E Electronics and Communication Engineering</option>
+            <option value="B.E Biomedical Engineering">B.E Biomedical Engineering</option>
+          </select>
+     </div>
+      <div class="form-col">
         <div class="form-group">
           <label for="students_present">No. of Students Present</label>
           <input type="number" name="students_present" id="students_present" required min="0">
@@ -364,16 +372,11 @@
       </div>
     </div>
 
-    <div class="form-group">
-      <label for="attendance_sheet">Attendance Sheet</label>
-      <div class="file-input-wrapper">
-        <div class="file-input-button">Choose Attendance Sheet</div>
-        <input type="file" name="attendance_sheet" id="attendance_sheet" multiple accept="image/*,.pdf,.doc,.docx" class="file-input">
-      </div>
-    </div>
+    
+     
 
     <div class="form-group">
-      <label for="session_video">5 mins Video</label>
+      <label for="session_video">1 mins Video</label>
       <div class="file-input-wrapper">
         <div class="file-input-button">Choose Video</div>
         <input type="file" name="session_video" id="session_video" accept="video/*" class="file-input">
