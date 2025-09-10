@@ -1,0 +1,393 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <title>Session Tracker</title>
+  <style>
+    :root {
+  --primary: #F9CBD2;
+  --primary-light: #F2B8C2;
+  --primary-dark: #E47990;
+  --secondary: #DE8C9C;
+  --accent: #F8D8DE;
+  --background: #ffffff;
+  --text: #B8445E;
+  --text-light: #7E47990;
+  --success: #2E7D32;
+  --success-bg: #E8F5E9;
+}
+
+    
+    * {
+      box-sizing: border-box;
+      transition: all 0.3s ease;
+    }
+    
+    body {
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      background-color: var(--background);
+      margin: 0;
+      padding: 20px;
+      color: var(--text);
+      line-height: 1.6;
+    }
+    
+    .container {
+      max-width: 1000px;
+      margin: 0 auto;
+      background: white;
+      padding: 30px;
+      border-radius: 12px;
+      
+      box-shadow: 0 6px 18px rgba(58, 58, 58, 0.74);
+    }
+    
+    h1 {
+      color: var(--primary);
+      text-align: center;
+      margin-bottom: 30px;
+      border-bottom: 2px solid var(--secondary);
+      padding-bottom: 15px;
+      font-weight: 700;
+      letter-spacing: 0.5px;
+    }
+    
+    .form-group { 
+      margin-bottom: 22px; 
+    }
+    
+    label { 
+      display: block; 
+      margin-bottom: 8px; 
+      font-weight: 600; 
+      color: var(--primary-dark);
+    }
+    
+    input, textarea, select {
+      width: 100%; 
+      padding: 14px; 
+      border: 2px solid var(--secondary); 
+      border-radius: 8px;
+      font-size: 16px; 
+      box-sizing: border-box;
+      background-color: #FFF;
+      color: var(--text);
+    }
+    
+    input:focus, textarea:focus, select:focus {
+      outline: none;
+      border-color: var(--primary);
+      box-shadow: 0 0 0 3px rgba(168, 106, 81, 0.2);
+    }
+    
+    .submit-btn {
+      background-color: var(--primary); 
+      color: white; 
+      border: none;
+      padding: 16px 24px; 
+      border-radius: 8px; 
+      font-size: 17px;
+      cursor: pointer; 
+      width: 100%; 
+      margin-top: 30px;
+      font-weight: 600;
+      letter-spacing: 0.5px;
+      box-shadow: 0 4px 8px rgba(168, 106, 81, 0.25);
+    }
+    
+    .submit-btn:hover { 
+      background-color: var(--primary-dark); 
+      transform: translateY(-2px);
+      box-shadow: 0 6px 12px rgba(168, 106, 81, 0.3);
+    }
+    
+    .form-row { 
+      display: flex; 
+      flex-wrap: wrap; 
+      margin: 0 -10px; 
+    }
+    
+    .form-col { 
+      flex: 1; 
+      padding: 0 10px; 
+      min-width: 250px; 
+    }
+    
+    .file-input-wrapper { 
+      position: relative; 
+      overflow: hidden; 
+      display: inline-block; 
+      width: 100%; 
+    }
+    
+    .file-input-button {
+      background-color: var(--primary-light);
+      color: white;
+      padding: 14px 20px;
+      border-radius: 8px;
+      cursor: pointer;
+      text-align: center;
+      display: block;
+      font-weight: 500;
+    }
+    
+    .file-input-button:hover {
+      background-color: var(--primary);
+    }
+    
+    .file-input { 
+      position: absolute; 
+      left: 0; 
+      top: 0; 
+      opacity: 0; 
+      width: 100%; 
+      height: 100%; 
+      cursor: pointer; 
+    }
+    
+    .success-message {
+      color: var(--success); 
+      background-color: var(--success-bg); 
+      padding: 15px;
+      border-radius: 8px; 
+      margin-bottom: 25px; 
+      border-left: 4px solid var(--success); 
+      display: none;
+      font-weight: 500;
+    }
+    
+    .section-title {
+      color: var(--primary);
+      margin-top: 35px;
+      margin-bottom: 20px;
+      padding-bottom: 10px;
+      border-bottom: 1px solid var(--secondary);
+      font-weight: 600;
+    }
+    
+    @media (max-width: 768px) { 
+      .form-col { 
+        flex: 100%; 
+        margin-bottom: 15px; 
+      } 
+      
+      .container {
+        padding: 20px;
+      }
+  }
+  </style>
+</head>
+<body>
+<div class="container">
+  <h1>Session Tracker</h1>
+
+  <div id="successMessage" class="success-message">
+    Session data saved successfully!
+    <div id="updateDetails"></div>
+  </div>
+  <div class="form-row">
+      <div class="form-col">
+        <div class="form-group">
+          <label for="date">Date:</label>
+          <input type="date" id="date" name="date" required>
+        </div>
+      </div>
+      <div class="form-col">
+        <div class="form-group">
+          <label for="number_of_trainer">Number of Trainers:</label>
+          <input type="number" name="number_of_trainer" id="number_of_trainer" required>
+        </div>
+      </div>
+    </div>
+
+  <form id="sessionForm" enctype="multipart/form-data">
+    <!-- Zone + Hub + Spoke -->
+    <div class="form-row">
+      <div class="form-col">
+        <div class="form-group">
+          <label for="zone_name">Zone:</label>
+          <select name="zone_name" id="zone_name" required>
+            <option value="">-- Select Zone --</option>
+            <option value="Zone XII : Ariyalur">Zone XII : Ariyalur</option>
+          </select>
+        </div>
+      </div>
+      <div class="form-col">
+        <div class="form-group">
+          <label for="hub_name">Select Hub</label>
+          <select name="hub_name" id="hub_name" required>
+            <option value="">-- Select Hub --</option>
+          </select>
+        </div>
+      </div>
+    </div>
+
+    <!-- Hub College Session Details -->
+    <h3 class="section-title">Hub College Session Details</h3>
+    <div id="hubCollegeDetails">
+      <div class="form-row">
+        <div class="form-col">
+          <label for="hub_branch">Branch</label>
+          <select name="hub_branch" id="hub_branch" required>
+            <option value="">-- Select Branch --</option>
+            <option value="B.E Electronics and Communication Engineering">B.E Electronics and Communication Engineering</option>
+            <option value="B.E Biomedical Engineering">B.E Biomedical Engineering</option>
+          </select>
+        </div>
+        <div class="form-col">
+          <div class="form-group">
+            <label for="hub_students_present">No. of Students Present (Hub)</label>
+            <input type="number" name="hub_students_present" id="hub_students_present" required min="0">
+          </div>
+        </div>
+        <div class="form-col">
+          <div class="form-group">
+            <label for="hub_students_absent">No. of Students Absent (Hub)</label>
+            <input type="number" name="hub_students_absent" id="hub_students_absent" required min="0">
+          </div>
+        </div>
+      </div>
+      <div class="form-row">
+        <div class="form-col">
+          <div class="form-group">
+            <label for="hub_duration">Duration Taken (Hours) (Hub)</label>
+            <input type="number" name="hub_duration" id="hub_duration" required min="0" step="0.5">
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Common Session Details -->
+    <h3 class="section-title">Common Session Details</h3>
+    <div class="form-row">
+      <div class="form-col">
+        <div class="form-group">
+          <label for="contact_number">Contact Number</label>
+          <input type="tel" name="contact_number" id="contact_number" required pattern="[0-9]{10}" placeholder="10-digit number">
+        </div>
+      </div>
+      <div class="form-col">
+        <div class="form-group">
+          <label for="trainer_name">Trainer Name</label>
+          <select name="trainer_name" id="trainer_name" required>
+            <option value="">-- Select Trainer --</option>
+            <option value="A.Nisha Jayaraj">A.Nisha Jayaraj</option>
+            <option value="Abirami">Abirami</option>
+            <option value="Ajeesh">Ajeesh</option>
+            <option value="Ashok">Ashok</option>
+            <option value="Barath Kumar">Barath Kumar</option>
+            <option value="Durai Selvi">Durai Selvi</option>
+            <option value="Guru Leelavathy">Guru Leelavathy</option>
+            <option value="Hochi minh perumal">Hochi minh perumal</option>
+            <option value="Iruthaya Jintha">Iruthaya Jintha</option>
+            <option value="Kansul Ariba Barveen.M">Kansul Ariba Barveen.M</option>
+            <option value="Kavya">Kavya</option>
+            <option value="Latha">Latha</option>
+            <option value="Mohan Ram">Mohan Ram</option>
+            <option value="Muppudathi">Muppudathi</option>
+            <option value="NANDHINI S">NANDHINI S</option>
+            <option value="Nithya Sree">Nithya Sree</option>
+            <option value="Parthasarathi">Parthasarathi</option>
+            <option value="Pattu">Pattu</option>
+            <option value="Revathi">Revathi</option>
+            <option value="SABARISHAN S">SABARISHAN S</option>
+            <option value="Sakthimari">Sakthimari</option>
+            <option value="Sakthiramsankar">Sakthiramsankar</option>
+            <option value="Santhosh Pandian">Santhosh Pandian</option>
+            <option value="Selva Jeevitha">Selva Jeevitha</option>
+            <option value="Soosai Anitha">Soosai Anitha</option>
+            <option value="Subramanian">Subramanian</option>
+            <option value="Sudha">Sudha</option>
+            <option value="Sundhara Chozhan">Sundhara Chozhan</option>
+            <option value="Thangalatha">Thangalatha</option>
+            <option value="Uma">Uma</option>
+            <option value="Valarmathi">Valarmathi</option>
+          </select>
+        </div>
+      </div>
+    </div>
+
+    <div class="form-group">
+      <label for="remarks">Remarks</label>
+      <textarea name="remarks" id="remarks" rows="4" placeholder="Any additional notes about the session..."></textarea>
+    </div>
+
+    <!-- Spoke College Session Details (Dynamically generated) -->
+    <h3 class="section-title">Spoke College Session Details</h3>
+    <div id="spokeContainer">
+      <!-- Spoke college fields will be dynamically added here by script.js -->
+    </div>
+
+<!--     <div class="form-row">
+      <div class="form-col">
+      <div class="form-group">
+        <label for="trainer_name">Trainer Name (For multiple trainers, use commas)</label>
+        <input type="text" name="trainer_name" id="trainer_name" >
+      </div> 
+      </div>
+      <div class="form-col">
+        <div class="form-group">
+          <label for="number_of_trainer">Number of Trainers:</label>
+          <input type="number" name="number_of_trainer" id="number_of_trainer" required>
+        </div>
+      </div>
+    </div> -->
+    <!-- Media Section -->
+    <h3 class="section-title">Media Uploads</h3>
+    <div class="form-row">
+      <div class="form-col">
+        <div class="form-group">
+          <label for="expense">Expense (₹)</label>
+          <input type="number" name="expense" id="expense" required min="0" step="0.01" placeholder="0.00">
+        </div>
+      </div>
+      <div class="form-col">
+        <div class="form-group">
+          <label for="expense_ss">Expense Screenshot(Below 5mb)</label>
+          <div class="file-input-wrapper">
+            <div class="file-input-button">Choose Screenshot</div>
+            <input type="file" name="expense_ss" id="expense_ss" multiple accept="image/*" class="file-input">
+          </div>
+        </div>
+      </div>
+    </div>
+    
+    <div class="form-row">
+      <div class="form-col">
+        <div class="form-group">
+          <label for="geo_tag">Session Starting Photo (Geo Tag-below 5mb)</label>
+          <div class="file-input-wrapper">
+            <div class="file-input-button">Choose Photo</div>
+            <input type="file" name="geo_tag" id="geo_tag" multiple accept="image/*" class="file-input">
+          </div>
+        </div>
+      </div>
+      <div class="form-col">
+        <div class="form-group">
+          <label for="staff_photo">Session Ending Photo (Geo Tag-below 5mb)</label>
+          <div class="file-input-wrapper">
+            <div class="file-input-button">Choose Photo</div>
+            <input type="file" name="staff_photo" id="staff_photo" multiple accept="image/*" class="file-input">
+          </div>
+        </div>
+      </div>
+    </div>
+
+    
+     
+
+    <div class="form-group">
+      <label for="session_video">Video(Below 50mb)</label>
+      <div class="file-input-wrapper">
+        <div class="file-input-button">Choose Video</div>
+        <input type="file" name="session_video" id="session_video" accept="video/*" class="file-input">
+      </div>
+    </div>
+
+    <button type="submit" class="submit-btn">Save Session Data</button>
+  </form>
+</div>
+
+<script src="script.js"></script>
+</body>
+</html>
