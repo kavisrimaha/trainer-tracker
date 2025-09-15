@@ -164,7 +164,96 @@
       border-bottom: 1px solid var(--secondary);
       font-weight: 600;
     }
-    
+ /* Trainer Checklist Container */
+.trainer-checklist {
+  display: flex;
+  flex-direction: column;
+  gap: 4px; /* reduced spacing to save space */
+  max-height: 180px; /* slightly smaller for compact layout */
+  overflow-y: auto;
+  padding: 6px; /* smaller padding */
+  border: 2px solid var(--secondary);
+  border-radius: 8px;
+  background-color: var(--accent); /* theme-based background */
+}
+
+/* Individual trainer item */
+.trainer-checklist label {
+  position: relative;
+  display: flex;
+  align-items: center;
+  padding-left: 28px; /* slightly smaller to save space */
+  cursor: pointer;
+  font-weight: 500;
+  color: var(--text);
+  user-select: none;
+  font-size: 13px; /* slightly smaller font */
+  transition: all 0.2s ease;
+  line-height: 1.4; /* tighter line spacing */
+}
+
+/* Hide default checkbox */
+.trainer-checklist input[type="checkbox"] {
+  display: none;
+}
+
+/* Custom checkbox */
+.trainer-checklist label span::before {
+  content: "";
+  position: absolute;
+  left: 0;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 16px; /* smaller box */
+  height: 16px;
+  border: 2px solid var(--secondary);
+  border-radius: 4px;
+  background-color: var(--background); /* theme-based */
+  transition: all 0.2s;
+}
+
+/* Checked state */
+.trainer-checklist input[type="checkbox"]:checked + span::before {
+  background-color: var(--primary);
+  border-color: var(--primary-dark);
+}
+
+/* Checkmark */
+.trainer-checklist label span::after {
+  content: "";
+  position: absolute;
+  left: 4px;
+  top: 50%;
+  width: 4px;
+  height: 9px;
+  border: solid white;
+  border-width: 0 2px 2px 0;
+  transform: translateY(-50%) rotate(45deg);
+  opacity: 0;
+  transition: opacity 0.2s;
+}
+
+.trainer-checklist input[type="checkbox"]:checked + span::after {
+  opacity: 1;
+}
+
+/* Hover effect */
+.trainer-checklist label:hover {
+  background-color: var(--primary-light);
+  border-radius: 6px;
+}
+
+/* Scrollbar styling */
+.trainer-checklist::-webkit-scrollbar {
+  width: 5px;
+}
+
+.trainer-checklist::-webkit-scrollbar-thumb {
+  background-color: rgba(184, 68, 94, 0.3);
+  border-radius: 3px;
+}
+
+
     @media (max-width: 768px) { 
       .form-col { 
         flex: 100%; 
@@ -265,52 +354,55 @@
           <label for="contact_number">Contact Number</label>
           <input type="tel" name="contact_number" id="contact_number" required pattern="[0-9]{10}" placeholder="10-digit number">
         </div>
-      </div>
-      <div class="form-col">
         <div class="form-group">
-          <label for="trainer_name">Trainer Name</label>
-          <select name="trainer_name" id="trainer_name" required>
-            <option value="">-- Select Trainer --</option>
-            <option value="A.Nisha Jayaraj">A.Nisha Jayaraj</option>
-            <option value="Abirami">Abirami</option>
-            <option value="Ajeesh">Ajeesh</option>
-            <option value="Ashok">Ashok</option>
-            <option value="Barath Kumar">Barath Kumar</option>
-            <option value="Durai Selvi">Durai Selvi</option>
-            <option value="Guru Leelavathy">Guru Leelavathy</option>
-            <option value="Hochi minh perumal">Hochi minh perumal</option>
-            <option value="Iruthaya Jintha">Iruthaya Jintha</option>
-            <option value="Kansul Ariba Barveen.M">Kansul Ariba Barveen.M</option>
-            <option value="Kavya">Kavya</option>
-            <option value="Latha">Latha</option>
-            <option value="Mohan Ram">Mohan Ram</option>
-            <option value="Muppudathi">Muppudathi</option>
-            <option value="NANDHINI S">NANDHINI S</option>
-            <option value="Nithya Sree">Nithya Sree</option>
-            <option value="Parthasarathi">Parthasarathi</option>
-            <option value="Pattu">Pattu</option>
-            <option value="Revathi">Revathi</option>
-            <option value="SABARISHAN S">SABARISHAN S</option>
-            <option value="Sakthimari">Sakthimari</option>
-            <option value="Sakthiramsankar">Sakthiramsankar</option>
-            <option value="Santhosh Pandian">Santhosh Pandian</option>
-            <option value="Selva Jeevitha">Selva Jeevitha</option>
-            <option value="Soosai Anitha">Soosai Anitha</option>
-            <option value="Subramanian">Subramanian</option>
-            <option value="Sudha">Sudha</option>
-            <option value="Sundhara Chozhan">Sundhara Chozhan</option>
-            <option value="Thangalatha">Thangalatha</option>
-            <option value="Uma">Uma</option>
-            <option value="Valarmathi">Valarmathi</option>
-          </select>
-        </div>
-      </div>
-    </div>
-
-    <div class="form-group">
       <label for="remarks">Remarks</label>
       <textarea name="remarks" id="remarks" rows="4" placeholder="Any additional notes about the session..."></textarea>
     </div>
+      </div>
+      
+      <div class="form-col">
+        <div class="form-group">
+  <label for="trainer_name">Trainer Name</label>
+ <div id="trainer_name" class="trainer-checklist">
+  <label><input type="checkbox" name="trainer_name[]" value="A.Nisha Jayaraj"><span>A.Nisha Jayaraj</span></label>
+  <label><input type="checkbox" name="trainer_name[]" value="Abirami"><span>Abirami</span></label>
+  <label><input type="checkbox" name="trainer_name[]" value="Ajeesh"><span>Ajeesh</span></label>
+  <label><input type="checkbox" name="trainer_name[]" value="Ashok"><span>Ashok</span></label>
+  <label><input type="checkbox" name="trainer_name[]" value="Barath Kumar"><span>Barath Kumar</span></label>
+  <label><input type="checkbox" name="trainer_name[]" value="Durai Selvi"><span>Durai Selvi</span></label>
+  <label><input type="checkbox" name="trainer_name[]" value="Guru Leelavathy"><span>Guru Leelavathy</span></label>
+  <label><input type="checkbox" name="trainer_name[]" value="Hochi minh perumal"><span>Hochi minh perumal</span></label>
+  <label><input type="checkbox" name="trainer_name[]" value="Iruthaya Jintha"><span>Iruthaya Jintha</span></label>
+  <label><input type="checkbox" name="trainer_name[]" value="Kansul Ariba Barveen.M"><span>Kansul Ariba Barveen.M</span></label>
+  <label><input type="checkbox" name="trainer_name[]" value="Kavya"><span>Kavya</span></label>
+  <label><input type="checkbox" name="trainer_name[]" value="Latha"><span>Latha</span></label>
+  <label><input type="checkbox" name="trainer_name[]" value="Mohan Ram"><span>Mohan Ram</span></label>
+  <label><input type="checkbox" name="trainer_name[]" value="Muppudathi"><span>Muppudathi</span></label>
+  <label><input type="checkbox" name="trainer_name[]" value="NANDHINI S"><span>NANDHINI S</span></label>
+  <label><input type="checkbox" name="trainer_name[]" value="Nithya Sree"><span>Nithya Sree</span></label>
+  <label><input type="checkbox" name="trainer_name[]" value="Parthasarathi"><span>Parthasarathi</span></label>
+  <label><input type="checkbox" name="trainer_name[]" value="Pattu"><span>Pattu</span></label>
+  <label><input type="checkbox" name="trainer_name[]" value="Revathi"><span>Revathi</span></label>
+  <label><input type="checkbox" name="trainer_name[]" value="SABARISHAN S"><span>SABARISHAN S</span></label>
+  <label><input type="checkbox" name="trainer_name[]" value="Sakthimari"><span>Sakthimari</span></label>
+  <label><input type="checkbox" name="trainer_name[]" value="Sakthiramsankar"><span>Sakthiramsankar</span></label>
+  <label><input type="checkbox" name="trainer_name[]" value="Santhosh Pandian"><span>Santhosh Pandian</span></label>
+  <label><input type="checkbox" name="trainer_name[]" value="Selva Jeevitha"><span>Selva Jeevitha</span></label>
+  <label><input type="checkbox" name="trainer_name[]" value="Soosai Anitha"><span>Soosai Anitha</span></label>
+  <label><input type="checkbox" name="trainer_name[]" value="Subramanian"><span>Subramanian</span></label>
+  <label><input type="checkbox" name="trainer_name[]" value="Sudha"><span>Sudha</span></label>
+  <label><input type="checkbox" name="trainer_name[]" value="Sundhara Chozhan"><span>Sundhara Chozhan</span></label>
+  <label><input type="checkbox" name="trainer_name[]" value="Thangalatha"><span>Thangalatha</span></label>
+  <label><input type="checkbox" name="trainer_name[]" value="Uma"><span>Uma</span></label>
+  <label><input type="checkbox" name="trainer_name[]" value="Valarmathi"><span>Valarmathi</span></label>
+</div>
+
+</div>
+
+ </div>
+</div>
+
+    
 
     <!-- Spoke College Session Details (Dynamically generated) -->
     <h3 class="section-title">Spoke College Session Details</h3>
